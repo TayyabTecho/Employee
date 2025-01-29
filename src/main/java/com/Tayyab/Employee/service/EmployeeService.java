@@ -1,5 +1,7 @@
 package com.Tayyab.Employee.service;
 
+import com.Tayyab.Employee.exception.EmployeeNotFound;
+import com.Tayyab.Employee.exception.InvalidAgeException;
 import com.Tayyab.Employee.model.Employee;
 import com.Tayyab.Employee.repository.EmployeeRepository;
 import com.Tayyab.Employee.request.EmployeeRequest;
@@ -20,11 +22,18 @@ public class EmployeeService {
         employee.setEmployeeName(employeeRequest.getEmployeeName());
         employee.setEmail(employeeRequest.getEmail());
         employee.setPassword(employeeRequest.getPassword());
+
+        if (employeeRequest.getAge() <= 40 && employeeRequest.getAge() > 18) {
+            employee.setAge(employeeRequest.getAge());
+        }else{
+            throw new InvalidAgeException("Age Not Valid");
+        }
+
         employeeRepository.save(employee);
     }
 
     public Employee findEmployeeById(Long employeeId) {
-        Employee e1 = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("employeeId not found"));
+        Employee e1 = employeeRepository.findById(employeeId).orElseThrow(() -> new EmployeeNotFound("employeeId not found"));
         return e1;
 //        return employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("employeeId not found"));
 
