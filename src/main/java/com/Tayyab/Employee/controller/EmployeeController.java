@@ -16,23 +16,23 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/")
-public void postEmployee(@RequestBody EmployeeRequest employeeRequest){
-    employeeService.createEmployee(employeeRequest);
-}
+    public void postEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        employeeService.createEmployee(employeeRequest);
+    }
 
-@GetMapping("/findById")
-public Employee getEmployee(@PathVariable Long employeeId){
-       return employeeService.findEmployeeById(employeeId);
-}
+    @GetMapping("/findById")
+    public Employee getEmployee(@PathVariable Long employeeId) {
+        return employeeService.findEmployeeById(employeeId);
+    }
 
-@DeleteMapping("/deleteById")
-public void deleteEmployee(@PathVariable Long employeeId){
+    @DeleteMapping("/deleteById")
+    public void deleteEmployee(@PathVariable Long employeeId) {
         employeeService.deleteById(employeeId);
-}
+    }
 
-@PutMapping("/")
-public String updateEmployee(@RequestBody EmployeeRequest employeeRequest, @PathVariable Long employeeId){
-     employeeService.updateEmployee(employeeId,employeeRequest);
-     return "employee updated successfully";
-}
+    @PutMapping("/")
+    public String updateEmployee(@RequestBody EmployeeRequest employeeRequest, @PathVariable Long employeeId) {
+        employeeService.updateEmployee(employeeId, employeeRequest);
+        return "employee updated successfully";
+    }
 }
