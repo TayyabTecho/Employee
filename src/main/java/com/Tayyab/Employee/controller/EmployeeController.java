@@ -20,12 +20,16 @@ public class EmployeeController {
         employeeService.createEmployee(employeeRequest);
     }
 
-    @GetMapping("/findById")
+
+    @GetMapping("/{employeeId}")
+
     public Employee getEmployee(@PathVariable Long employeeId) {
         return employeeService.findEmployeeById(employeeId);
     }
 
-    @DeleteMapping("/deleteById")
+
+    @DeleteMapping("/{employeeId}")
+
     public void deleteEmployee(@PathVariable Long employeeId) {
         employeeService.deleteById(employeeId);
     }
