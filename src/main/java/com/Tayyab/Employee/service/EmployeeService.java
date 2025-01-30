@@ -70,4 +70,12 @@ public class EmployeeService {
         employeeRepository.deleteAll();
         return deletedEmployee;
     }
+
+//    public void updateEmployeeById(Long employeeId, EmployeeRequest employeeRequest) {
+//    Employee employee = employeeRepository.findById(employeeId).orElseThrow(()->new RuntimeException("employeeId nort found"));
+//    employee.setEmployeeName(employeeRequest.getEmployeeName());
+//    employee.setAge(employeeRequest.getAge());
+//    employee.setPassword(employeeRequest.getPassword());
+//    employee.setEmail(employeeRequest.getPassword());
+//    }
 }

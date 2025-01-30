@@ -52,12 +52,32 @@ public class EmployeeController {
     }
 
     @PutMapping("/{myId}")
-    public String updateEmployeeById(@RequestBody EmployeeRequest employeeRequest, @PathVariable Long myId){
+    public String updateEmployeeById(@RequestBody EmployeeRequest employeeRequest, @PathVariable Long myId) {
         employeeService.updateEmployeeById(myId, employeeRequest);
         return "Employee Updated Successfully";
     }
+//
+//    @PostMapping("/")
+//    public void postEmployee(@RequestBody EmployeeRequest employeeRequest) {
+//        employeeService.createEmployee(employeeRequest);
+//    }
+//
+//    @GetMapping("/findById")
+//    public Employee getEmployee(@PathVariable Long employeeId) {
+//        return employeeService.findEmployeeById(employeeId);
+//    }
+//
+//    @DeleteMapping("/{employeeId}")
+//    public void deleteEmployee(@PathVariable Long employeeId) {
+//        employeeService.deleteById(employeeId);
+//    }
+//
+//    @PutMapping("/{employeeId")
+//    public String updateEmployee(@RequestBody EmployeeRequest employeeRequest, @PathVariable Long employeeId) {
+//        employeeService.updateEmployeeById(employeeId, employeeRequest);
+//        return "employee updated successfully";
+//    }
 }
-
 
 
 
