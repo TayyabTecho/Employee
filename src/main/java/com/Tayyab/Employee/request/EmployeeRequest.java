@@ -7,5 +7,4 @@ public class EmployeeRequest {
     private String employeeName;
     private String email;
     private String password;
-    private int age;
 }
