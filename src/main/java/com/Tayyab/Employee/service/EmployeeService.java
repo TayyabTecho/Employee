@@ -8,7 +8,6 @@ import com.Tayyab.Employee.request.EmployeeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,7 +17,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
 
-    public Employee createEmployee(EmployeeRequest employeeRequest) {
+    public void createEmployee(EmployeeRequest employeeRequest) {
         Employee employee = new Employee();
         employee.setEmployeeName(employeeRequest.getEmployeeName());
         employee.setEmail(employeeRequest.getEmail());
@@ -26,48 +25,32 @@ public class EmployeeService {
 
         if (employeeRequest.getAge() <= 40 && employeeRequest.getAge() > 18) {
             employee.setAge(employeeRequest.getAge());
-        } else {
-            throw new InvalidAgeException("Age is Not Valid");
+        }else{
+            throw new InvalidAgeException("Age Not Valid");
         }
-        return employeeRepository.save(employee);
-    }
 
-    public List<Employee> findAllEmployee() {
-        return employeeRepository.findAll();
+        employeeRepository.save(employee);
     }
 
     public Employee findEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EmployeeNotFound("employeeId not found"));
+        Employee e1 = employeeRepository.findById(employeeId).orElseThrow(() -> new EmployeeNotFound("employeeId not found"));
+        return e1;
+//        return employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("employeeId not found"));
+
     }
 
-    public Employee deleteById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee Id not Found for Delete user"));
+    public void deleteById(Long employeeId) {
         employeeRepository.deleteById(employeeId);
-        return employee;
+        // employeeRepository.delete(e2);
     }
 
-    public Employee updateEmployeeById(Long employeeId, EmployeeRequest employeeRequest) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("employeeId not found"));
-        if (employeeRequest.getEmployeeName() != null) {
-            employee.setEmployeeName(employeeRequest.getEmployeeName());
-        }
-        if (employeeRequest.getEmail() != null) {
-            employee.setEmail(employeeRequest.getEmail());
-        }
-        if (employeeRequest.getPassword() != null) {
-            employee.setPassword(employeeRequest.getPassword());
-        }
-        employee.setAge(employeeRequest.getAge());
-        employeeRepository.save(employee);
-        return employee;
-    }
+    public String updateEmployee(Long employeeId, EmployeeRequest employeeRequest) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("employeeId not found"));
 
-    public List<Employee> deleteAllEmployee() {
-      List<Employee> deletedEmployee = employeeRepository.findAll();
-        employeeRepository.deleteAll();
-        return deletedEmployee;
+
+        employee.setEmployeeName(employeeRequest.getEmployeeName());
+        employee.setEmail(employeeRequest.getEmail());
+        employee.setPassword(employeeRequest.getPassword());
+        return "employee updated successfully";
     }
 }
